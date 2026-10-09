@@ -1,44 +1,61 @@
+html {
+  --color-accent: oklch(45% 0.2 285);
+  --color-text: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-bg: #f5f5f7;
+  --color-card: #ffffff;
+  --radius: 1.25rem;
+
+  accent-color: var(--color-accent);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
-  /* Set line height to 1.5 times the font size
-	   and use the OS’s UI font as the website font
-	 */
-  font: 100%/1.5 system-ui;
+  font: 100%/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  letter-spacing: -0.01em;
   max-width: 100ch;
   margin-inline: max(1em, (100% - 100ch) / 2);
 }
 
-/* Step 2.4: accent color for the whole site */
-html {
-  --color-accent: oklch(65% 50% 0);
-  accent-color: var(--color-accent);
-}
-
-/* Step 2.2 + 2.3: nav layout and style */
+/* Floating frosted glass nav */
 nav {
+  position: sticky;
+  top: 1em;
+  z-index: 10;
   display: flex;
-  margin-bottom: 1em;
-  border-bottom: 1px solid oklch(80% 3% 200);
+  gap: 0.25em;
+  margin-block: 1em 3em;
+  padding: 0.35em;
+  background: rgb(255 255 255 / 0.7);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid rgb(0 0 0 / 0.06);
+  border-radius: 999px;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.06);
 }
 
 nav a {
   flex: 1;
   text-decoration: none;
-  color: inherit;
+  color: var(--color-muted);
   text-align: center;
   padding: 0.5em;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-/* Current page link */
-nav a.current {
-  border-bottom: 0.4em solid oklch(80% 3% 200);
-  padding-bottom: 0.1em;
-}
-
-/* Step 2.4: hover style */
 nav a:hover {
-  border-bottom: 0.4em solid var(--color-accent);
-  padding-bottom: 0.1em;
-  background-color: oklch(from var(--color-accent) 95% 5% h);
+  color: var(--color-text);
+  background-color: oklch(from var(--color-accent) 95% 0.03 h);
+}
+
+nav a.current,
+nav a.current:hover {
+  background-color: var(--color-text);
+  color: white;
 }
 
 /* Step 3.1: form controls use the page font */
