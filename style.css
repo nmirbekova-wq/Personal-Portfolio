@@ -1,9 +1,15 @@
 html {
-  --color-accent: oklch(45% 0.2 285);
-  --color-text: #1d1d1f;
-  --color-muted: #6e6e73;
-  --color-bg: #f5f5f7;
-  --color-card: #ffffff;
+  /* Step 4.1: site supports both light and dark */
+  color-scheme: light dark;
+
+  /* Each token: light-dark(light value, dark value) */
+  --color-accent: light-dark(oklch(45% 0.2 285), oklch(68% 0.17 285));
+  --color-text: light-dark(#1d1d1f, #f5f5f7);
+  --color-muted: light-dark(#6e6e73, #a1a1a6);
+  --color-bg: light-dark(#f5f5f7, #000000);
+  --color-card: light-dark(#ffffff, #1c1c1e);
+  --color-glass: light-dark(rgb(255 255 255 / 0.7), rgb(28 28 30 / 0.7));
+  --border-color: light-dark(rgb(0 0 0 / 0.08), rgb(255 255 255 / 0.14));
   --radius: 1.25rem;
 
   accent-color: var(--color-accent);
@@ -28,10 +34,10 @@ nav {
   gap: 0.25em;
   margin-block: 1em 3em;
   padding: 0.35em;
-  background: rgb(255 255 255 / 0.7);
+  background: var(--color-glass);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border: 1px solid rgb(0 0 0 / 0.06);
+  border: 1px solid var(--border-color);
   border-radius: 999px;
   box-shadow: 0 4px 24px rgb(0 0 0 / 0.06);
 }
@@ -49,13 +55,13 @@ nav a {
 
 nav a:hover {
   color: var(--color-text);
-  background-color: oklch(from var(--color-accent) 95% 0.03 h);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
 nav a.current,
 nav a.current:hover {
   background-color: var(--color-text);
-  color: white;
+  color: var(--color-bg);
 }
 
 /* Step 3.1: form controls use the page font */
@@ -87,9 +93,9 @@ form label {
 input,
 textarea {
   padding: 0.75em 1em;
-  border: 1px solid rgb(0 0 0 / 0.12);
+  border: 1px solid var(--border-color);
+  background: var(--color-bg);
   border-radius: 0.75em;
-  background: #fafafa;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -102,7 +108,7 @@ input:focus,
 textarea:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 4px oklch(from var(--color-accent) l c h / 0.15);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-accent) 25%, transparent);
 }
 
 form button {
@@ -212,7 +218,7 @@ img {
 
 .cv article {
   padding-block: 1em;
-  border-top: 1px solid rgb(0 0 0 / 0.06);
+  border-top: 1px solid var(--border-color);
 }
 
 .cv h2 + article {
@@ -273,7 +279,7 @@ img {
   margin: 0;
   padding: 0.3em 0.8em;
   border-radius: 999px;
-  background: oklch(from var(--color-accent) 96% 0.03 h);
+  background: color-mix(in oklch, var(--color-accent), canvas 88%);
   color: var(--color-accent);
   font-size: 0.85rem;
   font-weight: 500;
@@ -335,15 +341,15 @@ img {
 
 .button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px oklch(from var(--color-accent) l c h / 0.3);
+  box-shadow: 0 8px 20px color-mix(in oklch, var(--color-accent) 30%, transparent);
 }
 
 .button.secondary {
   background: var(--color-card);
   color: var(--color-text);
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+  box-shadow: inset 0 0 0 1px var(--border-color);
 }
 
 .button.secondary:hover {
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1), 0 8px 20px rgb(0 0 0 / 0.08);
+  box-shadow: inset 0 0 0 1px var(--border-color), 0 8px 20px rgb(0 0 0 / 0.08);
 }
