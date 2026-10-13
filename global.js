@@ -56,3 +56,60 @@ for (let p of pages) {
 
   nav.append(a);
 }
+
+// Step 4.2: add the theme dropdown to every page
+let isDark = matchMedia("(prefers-color-scheme: dark)").matches;
+
+document.body.insertAdjacentHTML(
+  "afterbegin",
+  `
+  <label class="color-scheme">
+    Theme:
+    <select>
+      <option value="light dark">Automatic (${isDark ? "Dark" : "Light"})</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </label>`,
+);
+
+let select = document.querySelector(".color-scheme select");
+
+// One function that applies a theme, used in two places below
+function setColorScheme(colorScheme) {
+  document.documentElement.style.setProperty("color-scheme", colorScheme);
+  select.value = colorScheme;
+}
+
+// Step 4.5: on page load, apply the saved theme if there is one
+if ("colorScheme" in localStorage) {
+  setColorScheme(localStorage.colorScheme);
+}
+
+// Step 4.4: when the user picks a theme, apply it and save it
+select.addEventListener("input", function (event) {
+  console.log("color scheme changed to", event.target.value);
+  setColorScheme(event.target.value);
+  localStorage.colorScheme = event.target.value;
+});
+
+// Step 5: build the mailto URL ourselves with proper encoding
+let form = document.querySelector("form");
+
+form?.addEventListener("submit", function (event) {
+  // Stop the browser's default submit
+  event.preventDefault();
+
+  // Collect all the form fields
+  let data = new FormData(form);
+  let params = [];
+
+  for (let [name, value] of data) {
+    console.log(name, value, encodeURIComponent(value));
+    params.push(name + "=" + encodeURIComponent(value));
+  }
+
+  // Example: mailto:nmirbekova@ucsd.edu?subject=Hello%20there&body=Hi
+  let url = form.action + "?" + params.join("&");
+  location.href = url;
+});
