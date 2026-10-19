@@ -113,3 +113,53 @@ form?.addEventListener("submit", function (event) {
   let url = form.action + "?" + params.join("&");
   location.href = url;
 });
+
+// Step 1.2: load a JSON file and return the data
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url);
+    console.log(response);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch projects: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching or parsing JSON data:", error);
+  }
+}
+
+// Step 1.4: turn an array of projects into <article> elements
+export function renderProjects(projects, containerElement, headingLevel = "h2") {
+  // Stop if the container doesn't exist
+  if (!containerElement) {
+    console.error("renderProjects: container element not found");
+    return;
+  }
+
+  // Only allow h1 to h6, otherwise fall back to h2
+  if (!/^h[1-6]$/.test(headingLevel)) {
+    headingLevel = "h2";
+  }
+
+  // Clear old content so projects don't get added twice
+  containerElement.innerHTML = "";
+
+  // Show a message if there are no projects
+  if (!projects || projects.length === 0) {
+    containerElement.innerHTML = "<p>No projects to show yet.</p>";
+    return;
+  }
+
+  for (let project of projects) {
+    const article = document.createElement("article");
+    article.innerHTML = `
+      <${headingLevel}>${project.title}</${headingLevel}>
+      <img src="${project.image}" alt="${project.title}">
+      <p>${project.description}</p>
+    `;
+    containerElement.appendChild(article);
+  }
+}
