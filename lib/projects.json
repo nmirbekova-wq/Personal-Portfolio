@@ -1,62 +1,74 @@
 [
-    {
-        "title": "Hello",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse exercitationem, dolor aspernatur libero omnis eos quos expedita vitae? Totam hic provident minima veritatis tempora minus excepturi tempore, repudiandae rerum ipsa?"
-    },
-    {
-        "title": "Corrupti minus assumenda velit.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Repellat aliquid sequi nostrum porro accusamus ullam, distinctio minima cum. Pariatur modi accusantium rem consequatur veritatis iure obcaecati. Illum nam ipsam in est non commodi hic maxime pariatur, ad dignissimos."
-    },
-    {
-        "title": "Iusto labore repellat ab!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Debitis veniam perferendis quas culpa voluptatem ullam officiis totam? Eos, voluptas, fuga temporibus dolorum, officia minus necessitatibus non reprehenderit natus provident sint cumque blanditiis distinctio officiis cum numquam nostrum molestias!"
-    },
-    {
-        "title": "Culpa commodi neque alias!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Quae velit explicabo repellat maiores dolor sunt distinctio dignissimos fugit, natus facilis eveniet odio, ea nesciunt, corrupti iure officiis nam expedita quam? Voluptatibus fugiat neque harum officia hic. Accusantium, nostrum."
-    },
-    {
-        "title": "Ex tempora possimus omnis!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Beatae necessitatibus magni dolores ea soluta maiores minima voluptate sequi illo voluptatibus molestias, temporibus, fuga quae dicta. Aliquam nisi ipsa corrupti! Quas, laboriosam aliquid! Repellat dignissimos nostrum unde provident veritatis."
-    },
-    {
-        "title": "Sint dolorum quis praesentium.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Tenetur, unde atque! Perferendis quae voluptates ullam maxime unde eaque pariatur ea. Tempore maiores, inventore sapiente molestias illo expedita magnam quis libero, ipsum facere, vitae asperiores odio error illum et!"
-    },
-    {
-        "title": "Facere quos molestias ea!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Obcaecati laboriosam voluptatum suscipit consequatur quis hic tenetur animi assumenda dolores nemo veritatis, magnam provident rerum incidunt totam, corrupti ipsa quos modi. Dolorem, doloribus. Provident optio facere quos reprehenderit atque."
-    },
-    {
-        "title": "Aliquam odio non iste!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Nesciunt facilis vitae voluptate accusantium similique? Sunt, quo quisquam voluptatum veritatis vero expedita porro nobis non. Odio sed fuga sunt atque, iste illo esse nisi, nihil at quos vitae vero."
-    },
-    {
-        "title": "Voluptates, est. Soluta, facere!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Doloribus impedit rem porro repellat alias iure, voluptas eligendi eos consequatur corrupti aliquid non eveniet fugiat natus quasi ratione incidunt necessitatibus? Aspernatur veniam, distinctio ducimus asperiores praesentium corporis atque neque."
-    },
-    {
-        "title": "Dolores fugiat itaque atque!",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Explicabo, quae vitae quisquam officia qui vel voluptatum corporis tempore accusantium laboriosam totam repellat doloremque obcaecati. Atque illo enim, accusantium illum, sapiente error in alias esse laudantium eum voluptatum quis?"
-    },
-    {
-        "title": "Explicabo tenetur vero amet.",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Obcaecati, rerum. Inventore ea alias qui similique aperiam quas, magni totam suscipit nulla quod sequi voluptatibus velit unde corrupti molestias at exercitationem, earum repellat nesciunt? Ducimus id aliquam vel iure?"
-    },
-    {
-        "title": "Itaque saepe quod quia?",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Amet hic soluta, saepe a quae explicabo odit dolore animi, officiis dolorem perspiciatis distinctio architecto non quam eligendi ad voluptatem consectetur unde, ipsa debitis voluptas. Aut dicta voluptates esse consequatur!"
-    }
+  {
+    "title": "Personal Portfolio Website",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "This site. Built with HTML, CSS, and JavaScript across the DSC 106 labs, with a JS-generated nav, dark mode, and projects loaded from a JSON file."
+  },
+  {
+    "title": "Life Expectancy Gap: Persuasive vs Deceptive Visualization",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "DSC 106 group project using World Bank human development data, showing how design choices can make the same data persuade or mislead."
+  },
+  {
+    "title": "Grocery Foods: Processing vs Nutrition",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "DSC 106 expository visualization. A two-panel chart comparing how processed foods are against their sugar, sodium, and price per calorie."
+  },
+  {
+    "title": "Historical Redlining and Environmental Burden",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Group research project linking 1930s HOLC redlining grades to modern pollution burden in San Diego using OLS regression and Welch's t-test (r = 0.63, p = 0.012)."
+  },
+  {
+    "title": "Summit Ridge DataHub",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Case study with Supabase, a Python data ingestion pipeline, and an LLM-powered one-pager generator."
+  },
+  {
+    "title": "Lunara: Women's Health App",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Women's health app prototype built with React Native and Expo, plus a landing page with scroll-driven animation and a brand identity designed from scratch."
+  },
+  {
+    "title": "Statistical Inference in R",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Coursework covering interaction models, logistic regression, partial F-tests, bootstrapping, and time series analysis with ARIMA."
+  },
+  {
+    "title": "Machine Learning Foundations",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Problem sets on SVMs, ridge regression, Bayes classifiers, QDA, Naive Bayes, decision trees, and density estimation, written up in LaTeX."
+  },
+  {
+    "title": "Predicting U.S. Power Outage Duration",
+    "year": "2025",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Full modeling pipeline on 1,500+ outage records with feature engineering, permutation tests, gradient boosting, and a fairness audit across subgroups."
+  },
+  {
+    "title": "Consumer Transaction Analysis at Cash2u",
+    "year": "2025",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Internship analysis of 50,000+ installment payment transactions to find behavior trends and turn them into recommendations for leadership."
+  },
+  {
+    "title": "Relational Database Design",
+    "year": "2025",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "SQL coursework on E/R diagrams, BCNF decomposition, and transaction scheduling."
+  },
+  {
+    "title": "Python Game Development Workshop",
+    "year": "2024",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Workshop I ran as President of Women in Computer Science at Diablo Valley College, teaching students to build a simple game in Python."
+  }
 ]
