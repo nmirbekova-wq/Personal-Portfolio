@@ -131,7 +131,7 @@ export async function fetchJSON(url) {
   }
 }
 
-// Step 1.4: turn an array of projects into <article> elements
+// Turn an array of projects into <article> elements
 export function renderProjects(projects, containerElement, headingLevel = "h2") {
   // Stop if the container doesn't exist
   if (!containerElement) {
@@ -153,18 +153,26 @@ export function renderProjects(projects, containerElement, headingLevel = "h2") 
     return;
   }
 
+  // Local files (images, PDFs) get BASE_PATH so they work on every page
+  const fixPath = (path) => (path.startsWith("http") ? path : BASE_PATH + path);
+
   for (let project of projects) {
     const article = document.createElement("article");
 
     // If the project has a url, make the title a link
     const title = project.url
-      ? `<a href="${project.url}" target="_blank">${project.title}</a>`
+      ? `<a href="${fixPath(project.url)}" target="_blank">${project.title}</a>`
       : project.title;
+
+    // A list of bullets becomes <ul>, plain text stays a <p>
+    const description = Array.isArray(project.description)
+      ? `<ul>${project.description.map((point) => `<li>${point}</li>`).join("")}</ul>`
+      : `<p>${project.description}</p>`;
 
     article.innerHTML = `
       <${headingLevel}>${title}</${headingLevel}>
-      <img src="${project.image}" alt="${project.title}">
-      <p>${project.description}</p>
+      <img src="${fixPath(project.image)}" alt="${project.title}">
+      ${description}
     `;
 
     containerElement.appendChild(article);

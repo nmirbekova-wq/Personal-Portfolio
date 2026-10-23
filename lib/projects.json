@@ -2,77 +2,118 @@
   {
     "title": "Predicting U.S. Power Outage Duration",
     "year": "2025",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "image": "images/projects/power-outage.png",
     "url": "https://mirbekovan985.github.io/Understanding-and-Predicting-the-Causes-of-Major-Power-Outages-in-the-U.S/",
-    "description": "Built a full modeling pipeline on 1,500+ real-world outage records using feature engineering, permutation-based hypothesis testing, and gradient boosting, improving prediction accuracy by 57%. Includes a stakeholder report with a fairness audit across subgroups."
+    "description": [
+      "Built a modeling pipeline on 1,500+ real-world outage records using feature engineering, permutation tests, and gradient boosting, improving prediction accuracy by 57%.",
+      "Wrote a stakeholder report with a fairness audit checking model robustness across subgroups."
+    ]
   },
   {
     "title": "Historical Redlining & Environmental Burden",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "image": "images/projects/redlining.png",
     "url": "https://github.com/nmirbekova-wq/Historical-Redlining-Environmental-Burden-Analysis-/blob/main/FinalProject.ipynb",
-    "description": "Merged three real-world datasets to test whether 1930s redlining grades predict today's pollution burden in San Diego. OLS regression and Welch's t-test found a significant relationship (r = 0.63, p = 0.012, R² = 0.42), shared in a written report and recorded briefing."
+    "description": [
+      "Merged three real-world datasets and used OLS regression and Welch's t-test to link 1930s redlining grades to today's pollution burden (r = 0.63, p = 0.012, R² = 0.42).",
+      "Presented results to a non-technical audience in a written report and recorded briefing."
+    ]
   },
   {
     "title": "Support Ticket Memory Agent",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "image": "images/projects/ticket-agent.png",
     "url": "https://github.com/nmirbekova-wq/ticket-memory-agent",
-    "description": "An LLM agent that answers support questions using memory of past solved tickets and learns from user feedback. Built with Python, TF-IDF retrieval, and the Claude API, with a 90% top-3 retrieval hit rate on reworded test questions."
+    "description": [
+      "LLM agent that answers support questions using memory of past solved tickets, built with Python, TF-IDF retrieval, and the Claude API.",
+      "Learns from user feedback and reached a 90% top-3 retrieval hit rate on reworded test questions."
+    ]
   },
   {
     "title": "Persuasive or Deceptive Visualization?",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "image": "images/projects/project2.png",
     "url": "https://jam0113.github.io/DSC106_project2/",
-    "description": "DSC 106 group project on the claim that the life expectancy gap between rich and poor countries has largely closed. Built one chart for and one against using World Bank data (1960 to 2019), then rated each design choice on a scale from deceptive to earnest."
+    "description": [
+      "DSC 106 group project on the claim that the life expectancy gap between rich and poor countries has largely closed, using World Bank data (1960 to 2019).",
+      "Built one chart for and one against the claim, then rated each design choice from deceptive to earnest."
+    ]
   },
   {
     "title": "Casino Revenue Time Series Analysis",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "R lab revisiting a published study on whether poker rooms make money for Las Vegas casinos. Identified the flaw of mixing model selection with inference, ran a proper time series inference workflow, and tested how sensitive the results were."
+    "image": "images/projects/casino-time-series.png",
+    "description": [
+      "Reviewed a published study on whether poker rooms make money for Las Vegas casinos and found it mixed model selection with inference.",
+      "Ran a proper time series inference workflow in R, with sensitivity analyses."
+    ]
   },
   {
     "title": "Relative Risks, Odds Ratios, and Logistic Regression",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "R lab computing relative risks and odds ratios from a meat consumption and colon cancer study, explaining why relative risk fails in case-control designs, and fitting a logistic regression with BMI."
+    "image": "images/projects/risk-logistic.png",
+    "description": [
+      "Computed relative risks and odds ratios in R from a meat consumption and colon cancer study.",
+      "Explained why relative risk fails in case-control designs and fit a logistic regression with BMI."
+    ]
   },
   {
     "title": "Model Selection and Inference on MLB Salaries",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "R lab on the Hitters dataset of 1986/87 MLB players. Used simulation to show how dropping covariates based on p-values inflates the Type I error rate, then applied a proper inference workflow and log transformations to model salary."
+    "image": "images/projects/mlb-salaries.png",
+    "description": [
+      "Used simulation in R to show how dropping covariates based on p-values inflates the Type I error rate.",
+      "Applied a proper inference workflow and log transformations to model 1986/87 MLB player salaries."
+    ]
   },
   {
     "title": "Danceability and Spotify Popularity",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "COGS 9 group project asking whether artists active from 2018 to 2025 with more danceable music are more popular on Spotify, using a Kaggle dataset of tracks from about 30,000 artists. Includes a research review and an ethics plan for collection bias and fair modeling."
+    "image": "images/projects/spotify.png",
+    "url": "files/spotify-checkpoint.pdf",
+    "description": [
+      "COGS 9 group project asking if artists active from 2018 to 2025 with more danceable music are more popular on Spotify.",
+      "Used a Kaggle dataset of tracks from about 30,000 artists, with a research review and an ethics plan for bias and fair modeling."
+    ]
   },
   {
     "title": "Bias in Machine Learning",
     "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "COGS 9 assignment using interactive simulations from \"The Myth of the Impartial Machine\" to study sampling error, dataset bias in ImageNet, how imbalanced data pushes models to amplify bias, and runaway feedback loops."
+    "image": "images/projects/bias-ml.png",
+    "url": "files/bias-ml.pdf",
+    "description": [
+      "COGS 9 assignment using interactive simulations from \"The Myth of the Impartial Machine.\"",
+      "Studied sampling error, dataset bias in ImageNet, how imbalanced data pushes models to amplify bias, and feedback loops."
+    ]
+  },
+  {
+    "title": "Python Snake Game Workshop",
+    "year": "2024",
+    "image": "images/projects/snake-workshop.png",
+    "url": "https://www.instagram.com/stories/highlights/17932889021816636/",
+    "description": [
+      "Women in Computer Science workshop at Diablo Valley College with 20+ attendees.",
+      "Coded a Snake game in Python together, then played against each other."
+    ]
   },
   {
     "title": "Alma: UX/UI and Graphic Design",
     "year": "2025",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Graphic and UX/UI designer at Alma, a LegalTech startup using AI to make immigration easier ($5.1M raised). Designed data-driven UI improvements for navigation and accessibility, and analyzed 200+ survey responses to improve content clarity and user flow."
+    "description": [
+      "Graphic and UX/UI designer at an AI LegalTech startup making immigration easier ($5.1M raised).",
+      "Designed data-driven UI improvements for navigation and accessibility.",
+      "Analyzed 200+ survey responses to improve content clarity and user flow."
+    ]
   },
   {
     "title": "Fluent.ai: UX/UI Design",
     "year": "2024",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "UX/UI designer for an English learning app for IT specialists, founded by a Stanford LdX graduate. Interviewed 15+ IT professionals about language barriers, designed and prototyped the full app workflow in Figma, and worked with engineers to match designs to the backend."
-  },
-  {
-    "title": "Python Snake Game Workshop",
-    "year": "2024",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Women in Computer Science workshop at Diablo Valley College with 20+ attendees. We coded a Snake game in Python together, then played against each other."
+    "description": [
+      "UX/UI designer for an English learning app for IT specialists, founded by a Stanford LdX graduate.",
+      "Interviewed 15+ IT professionals and prototyped the full app workflow in Figma.",
+      "Worked with engineers to align designs with backend functionality."
+    ]
   }
 ]
