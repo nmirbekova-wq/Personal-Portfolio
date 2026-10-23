@@ -431,3 +431,19 @@ img {
 .projects article a:hover {
   color: var(--color-accent);
 }
+
+/* Bullet point descriptions on project cards */
+.projects ul {
+  margin: 0;
+  padding-left: 1.1em;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.projects li {
+  margin-block: 0.35em;
+}
+
+.projects li::marker {
+  color: var(--color-accent);
+}

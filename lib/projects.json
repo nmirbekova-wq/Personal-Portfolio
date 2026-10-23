@@ -99,7 +99,7 @@
   {
     "title": "Alma: UX/UI and Graphic Design",
     "year": "2025",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "image": "images/projects/alma.png",
     "description": [
       "Graphic and UX/UI designer at an AI LegalTech startup making immigration easier ($5.1M raised).",
       "Designed data-driven UI improvements for navigation and accessibility.",
@@ -109,7 +109,7 @@
   {
     "title": "Fluent.ai: UX/UI Design",
     "year": "2024",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "image": "images/projects/fluent-ai.png",
     "description": [
       "UX/UI designer for an English learning app for IT specialists, founded by a Stanford LdX graduate.",
       "Interviewed 15+ IT professionals and prototyped the full app workflow in Figma.",
