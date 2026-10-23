@@ -1,74 +1,78 @@
 [
   {
-    "title": "Personal Portfolio Website",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "This site. Built with HTML, CSS, and JavaScript across the DSC 106 labs, with a JS-generated nav, dark mode, and projects loaded from a JSON file."
-  },
-  {
-    "title": "Life Expectancy Gap: Persuasive vs Deceptive Visualization",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "DSC 106 group project using World Bank human development data, showing how design choices can make the same data persuade or mislead."
-  },
-  {
-    "title": "Grocery Foods: Processing vs Nutrition",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "DSC 106 expository visualization. A two-panel chart comparing how processed foods are against their sugar, sodium, and price per calorie."
-  },
-  {
-    "title": "Historical Redlining and Environmental Burden",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Group research project linking 1930s HOLC redlining grades to modern pollution burden in San Diego using OLS regression and Welch's t-test (r = 0.63, p = 0.012)."
-  },
-  {
-    "title": "Summit Ridge DataHub",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Case study with Supabase, a Python data ingestion pipeline, and an LLM-powered one-pager generator."
-  },
-  {
-    "title": "Lunara: Women's Health App",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Women's health app prototype built with React Native and Expo, plus a landing page with scroll-driven animation and a brand identity designed from scratch."
-  },
-  {
-    "title": "Statistical Inference in R",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Coursework covering interaction models, logistic regression, partial F-tests, bootstrapping, and time series analysis with ARIMA."
-  },
-  {
-    "title": "Machine Learning Foundations",
-    "year": "2026",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Problem sets on SVMs, ridge regression, Bayes classifiers, QDA, Naive Bayes, decision trees, and density estimation, written up in LaTeX."
-  },
-  {
     "title": "Predicting U.S. Power Outage Duration",
     "year": "2025",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Full modeling pipeline on 1,500+ outage records with feature engineering, permutation tests, gradient boosting, and a fairness audit across subgroups."
+    "url": "https://mirbekovan985.github.io/Understanding-and-Predicting-the-Causes-of-Major-Power-Outages-in-the-U.S/",
+    "description": "Built a full modeling pipeline on 1,500+ real-world outage records using feature engineering, permutation-based hypothesis testing, and gradient boosting, improving prediction accuracy by 57%. Includes a stakeholder report with a fairness audit across subgroups."
   },
   {
-    "title": "Consumer Transaction Analysis at Cash2u",
+    "title": "Historical Redlining & Environmental Burden",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "url": "https://github.com/nmirbekova-wq/Historical-Redlining-Environmental-Burden-Analysis-/blob/main/FinalProject.ipynb",
+    "description": "Merged three real-world datasets to test whether 1930s redlining grades predict today's pollution burden in San Diego. OLS regression and Welch's t-test found a significant relationship (r = 0.63, p = 0.012, R² = 0.42), shared in a written report and recorded briefing."
+  },
+  {
+    "title": "Support Ticket Memory Agent",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "url": "https://github.com/nmirbekova-wq/ticket-memory-agent",
+    "description": "An LLM agent that answers support questions using memory of past solved tickets and learns from user feedback. Built with Python, TF-IDF retrieval, and the Claude API, with a 90% top-3 retrieval hit rate on reworded test questions."
+  },
+  {
+    "title": "Persuasive or Deceptive Visualization?",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "url": "https://jam0113.github.io/DSC106_project2/",
+    "description": "DSC 106 group project on the claim that the life expectancy gap between rich and poor countries has largely closed. Built one chart for and one against using World Bank data (1960 to 2019), then rated each design choice on a scale from deceptive to earnest."
+  },
+  {
+    "title": "Casino Revenue Time Series Analysis",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "R lab revisiting a published study on whether poker rooms make money for Las Vegas casinos. Identified the flaw of mixing model selection with inference, ran a proper time series inference workflow, and tested how sensitive the results were."
+  },
+  {
+    "title": "Relative Risks, Odds Ratios, and Logistic Regression",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "R lab computing relative risks and odds ratios from a meat consumption and colon cancer study, explaining why relative risk fails in case-control designs, and fitting a logistic regression with BMI."
+  },
+  {
+    "title": "Model Selection and Inference on MLB Salaries",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "R lab on the Hitters dataset of 1986/87 MLB players. Used simulation to show how dropping covariates based on p-values inflates the Type I error rate, then applied a proper inference workflow and log transformations to model salary."
+  },
+  {
+    "title": "Danceability and Spotify Popularity",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "COGS 9 group project asking whether artists active from 2018 to 2025 with more danceable music are more popular on Spotify, using a Kaggle dataset of tracks from about 30,000 artists. Includes a research review and an ethics plan for collection bias and fair modeling."
+  },
+  {
+    "title": "Bias in Machine Learning",
+    "year": "2026",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "COGS 9 assignment using interactive simulations from \"The Myth of the Impartial Machine\" to study sampling error, dataset bias in ImageNet, how imbalanced data pushes models to amplify bias, and runaway feedback loops."
+  },
+  {
+    "title": "Alma: UX/UI and Graphic Design",
     "year": "2025",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Internship analysis of 50,000+ installment payment transactions to find behavior trends and turn them into recommendations for leadership."
+    "description": "Graphic and UX/UI designer at Alma, a LegalTech startup using AI to make immigration easier ($5.1M raised). Designed data-driven UI improvements for navigation and accessibility, and analyzed 200+ survey responses to improve content clarity and user flow."
   },
   {
-    "title": "Relational Database Design",
-    "year": "2025",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "SQL coursework on E/R diagrams, BCNF decomposition, and transaction scheduling."
-  },
-  {
-    "title": "Python Game Development Workshop",
+    "title": "Fluent.ai: UX/UI Design",
     "year": "2024",
     "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Workshop I ran as President of Women in Computer Science at Diablo Valley College, teaching students to build a simple game in Python."
+    "description": "UX/UI designer for an English learning app for IT specialists, founded by a Stanford LdX graduate. Interviewed 15+ IT professionals about language barriers, designed and prototyped the full app workflow in Figma, and worked with engineers to match designs to the backend."
+  },
+  {
+    "title": "Python Snake Game Workshop",
+    "year": "2024",
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Women in Computer Science workshop at Diablo Valley College with 20+ attendees. We coded a Snake game in Python together, then played against each other."
   }
 ]
