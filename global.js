@@ -169,10 +169,13 @@ export function renderProjects(projects, containerElement, headingLevel = "h2") 
       ? `<ul>${project.description.map((point) => `<li>${point}</li>`).join("")}</ul>`
       : `<p>${project.description}</p>`;
 
-    article.innerHTML = `
+        article.innerHTML = `
       <${headingLevel}>${title}</${headingLevel}>
       <img src="${fixPath(project.image)}" alt="${project.title}">
-      ${description}
+      <div class="project-text">
+        ${description}
+        <p class="project-year">${project.year}</p>
+      </div>
     `;
 
     containerElement.appendChild(article);

@@ -447,3 +447,19 @@ img {
 .projects li::marker {
   color: var(--color-accent);
 }
+
+/* Year under each project description */
+.project-year {
+  margin: 0.75em 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Pie chart */
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+}
