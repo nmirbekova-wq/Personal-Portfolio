@@ -472,7 +472,9 @@ img {
 }
 
 #projects-pie-plot {
-  flex: 0 0 12em;
+  width: 12em;
+  max-width: 100%;
+  flex: none;
   overflow: visible;
 }
 

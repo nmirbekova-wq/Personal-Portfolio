@@ -92,7 +92,8 @@ function updatePage() {
   // so you can still switch to another year
   renderProjects(visibleProjects, projectsContainer, "h2");
   renderPieChart(searchedProjects);
-  projectsTitle.textContent = `${visibleProjects.length} Projects`;
+  let count = visibleProjects.length;
+  projectsTitle.textContent = `${count} ${count === 1 ? "Project" : "Projects"}`;
 }
 
 // Search updates the query, then redraws everything
