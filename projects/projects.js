@@ -12,22 +12,39 @@ renderProjects(projects, projectsContainer, "h2");
 const projectsTitle = document.querySelector(".projects-title");
 projectsTitle.textContent = `${projects.length} Projects`;
 
-// Step 1: pie chart with sample data
-let data = [1, 2, 3, 4, 5, 5];
+// Step 3: count projects per year
+let rolledData = d3.rollups(
+  projects,
+  (v) => v.length,
+  (d) => d.year,
+);
 
-// Arc generator: turns start/end angles into an SVG path string
+// Sort years oldest to newest so the legend reads in order
+rolledData.sort((a, b) => a[0] - b[0]);
+
+// Turn [year, count] pairs into { value, label } objects
+let data = rolledData.map(([year, count]) => {
+  return { value: count, label: year };
+});
+
+// Step 1: build the pie slices
 let arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
-
-// Slice generator: turns data values into start/end angles
-let sliceGenerator = d3.pie();
+let sliceGenerator = d3.pie().value((d) => d.value);
 let arcData = sliceGenerator(data);
 let arcs = arcData.map((d) => arcGenerator(d));
-
-// Color scale: gives each slice index its own color
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-// Draw one <path> per slice
 let svg = d3.select("#projects-pie-plot");
 arcs.forEach((arc, idx) => {
   svg.append("path").attr("d", arc).attr("fill", colors(idx));
+});
+
+// Step 2.2: build the legend
+let legend = d3.select(".legend");
+data.forEach((d, idx) => {
+  legend
+    .append("li")
+    .attr("style", `--color:${colors(idx)}`)
+    .attr("class", "legend-item")
+    .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
 });
