@@ -504,3 +504,14 @@ img {
   color: var(--color-muted);
   font-style: normal;
 }
+
+/* Step 4: search bar */
+.searchBar {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 2em;
+  padding: 0.85em 1.25em;
+  border-radius: 999px;
+  background: var(--color-card);
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.04);
+}
