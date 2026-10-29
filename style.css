@@ -515,3 +515,30 @@ img {
   background: var(--color-card);
   box-shadow: 0 2px 12px rgb(0 0 0 / 0.04);
 }
+
+/* Step 5.1: fade other slices when one is hovered */
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+#projects-pie-plot path {
+  transition: 300ms;
+  cursor: pointer;
+}
+
+/* Step 5.2: selected slice and legend item */
+.selected {
+  --color: var(--color-text) !important;
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+
+.legend-item {
+  cursor: pointer;
+}
+
+.legend-item.selected {
+  font-weight: 600;
+}

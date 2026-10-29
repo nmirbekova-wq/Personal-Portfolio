@@ -4,18 +4,17 @@ import { fetchJSON, renderProjects } from "../global.js";
 // Load the project data
 const projects = await fetchJSON("../lib/projects.json");
 
-// Find the container and render the projects into it
 const projectsContainer = document.querySelector(".projects");
-renderProjects(projects, projectsContainer, "h2");
-
-// Step 1.6: show how many projects there are in the title
 const projectsTitle = document.querySelector(".projects-title");
-projectsTitle.textContent = `${projects.length} Projects`;
 
 // One color scale for the whole page, keyed by year
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
-// Step 4.4: all the chart code in one function, so it can redraw
+// The two filters live here, so every update can use both
+let query = "";
+let selectedYear = null; // null means no slice is selected
+
+// Step 4.4 + 5: draw the pie chart and legend
 function renderPieChart(projectsGiven) {
   // Count projects per year
   let rolledData = d3.rollups(
@@ -42,9 +41,22 @@ function renderPieChart(projectsGiven) {
   let legend = d3.select(".legend");
   legend.selectAll("li").remove();
 
+  // Step 5.2: clicking a slice or legend item selects that year,
+  // clicking it again deselects it
+  function selectYear(year) {
+    selectedYear = selectedYear === year ? null : year;
+    updatePage();
+  }
+
   // Draw slices
   arcs.forEach((arc, idx) => {
-    svg.append("path").attr("d", arc).attr("fill", colors(data[idx].label));
+    let year = data[idx].label;
+    svg
+      .append("path")
+      .attr("d", arc)
+      .attr("fill", colors(year))
+      .attr("class", year === selectedYear ? "selected" : null)
+      .on("click", () => selectYear(year));
   });
 
   // Draw legend
@@ -52,28 +64,43 @@ function renderPieChart(projectsGiven) {
     legend
       .append("li")
       .attr("style", `--color:${colors(d.label)}`)
-      .attr("class", "legend-item")
-      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`);
+      .attr("class", d.label === selectedYear ? "legend-item selected" : "legend-item")
+      .html(`<span class="swatch"></span> ${d.label} <em>(${d.value})</em>`)
+      .on("click", () => selectYear(d.label));
   });
 }
 
-// Draw the chart once when the page loads
-renderPieChart(projects);
-
-// Steps 4.1 to 4.3: search
-let query = "";
-let searchInput = document.querySelector(".searchBar");
-
-searchInput.addEventListener("input", (event) => {
-  query = event.target.value;
-
-  // Keep projects where any field contains the query, ignoring case
-  let filteredProjects = projects.filter((project) => {
+// Step 5.4 fix: one function applies BOTH filters every time
+function updatePage() {
+  // 1. Search filter
+  let searchedProjects = projects.filter((project) => {
     let values = Object.values(project).join("\n").toLowerCase();
     return values.includes(query.toLowerCase());
   });
 
-  // Redraw both the cards and the chart
-  renderProjects(filteredProjects, projectsContainer, "h2");
-  renderPieChart(filteredProjects);
+  // If the selected year has no matches in this search, clear it
+  if (!searchedProjects.some((p) => p.year === selectedYear)) {
+    selectedYear = null;
+  }
+
+  // 2. Year filter, on top of the search results
+  let visibleProjects = selectedYear
+    ? searchedProjects.filter((p) => p.year === selectedYear)
+    : searchedProjects;
+
+  // Cards show both filters; the pie shows the search results,
+  // so you can still switch to another year
+  renderProjects(visibleProjects, projectsContainer, "h2");
+  renderPieChart(searchedProjects);
+  projectsTitle.textContent = `${visibleProjects.length} Projects`;
+}
+
+// Search updates the query, then redraws everything
+let searchInput = document.querySelector(".searchBar");
+searchInput.addEventListener("input", (event) => {
+  query = event.target.value;
+  updatePage();
 });
+
+// First draw on page load
+updatePage();
