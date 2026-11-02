@@ -544,3 +544,38 @@ img {
 .legend-item.selected {
   font-weight: 600;
 }
+
+/* Lab 6: summary stats on the Meta page */
+.stats {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: auto auto;
+  gap: 0.25em 1.5em;
+  margin: 0;
+  padding: 1.5em;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 12px rgb(0 0 0 / 0.04);
+  text-align: center;
+}
+
+.stats dt {
+  grid-row: 1;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.stats dd {
+  grid-row: 2;
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-accent);
+}
+
+.stats abbr {
+  text-decoration: none;
+}
