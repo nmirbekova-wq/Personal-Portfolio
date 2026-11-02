@@ -579,3 +579,27 @@ img {
 .stats abbr {
   text-decoration: none;
 }
+
+/* Lab 6 Step 2: scatterplot */
+#chart {
+  margin-block: 1em 3em;
+}
+
+.dots circle {
+  fill: var(--color-accent);
+}
+
+/* Faint gridlines, with no line along the edge */
+.gridlines line {
+  stroke: var(--border-color);
+}
+
+.gridlines .domain {
+  display: none;
+}
+
+/* Axis labels follow the page text color in light and dark mode */
+#chart text {
+  font-family: inherit;
+  fill: var(--color-muted);
+}
