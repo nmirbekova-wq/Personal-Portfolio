@@ -188,6 +188,7 @@ function renderScatterPlot(data, commits) {
     .append("g")
     .attr("transform", `translate(${usableArea.left}, 0)`)
     .call(yAxis);
+  createBrushSelector(svg);
 }
 
 // Step 3.1: fill the tooltip with one commit's info
@@ -231,6 +232,82 @@ function updateTooltipPosition(event) {
 
   tooltip.style.left = `${x}px`;
   tooltip.style.top = `${y}px`;
+}
+
+// Step 5.1-5.2: set up the brush, then put the dots back on top
+// so hovering still works
+function createBrushSelector(svg) {
+  svg.call(d3.brush().on("start brush end", brushed));
+  svg.selectAll(".dots, .overlay ~ *").raise();
+}
+
+// Step 5.4: runs every time the brush moves
+function brushed(event) {
+  const selection = event.selection;
+  d3.selectAll(".dots circle").classed("selected", (d) =>
+    isCommitSelected(selection, d),
+  );
+  renderSelectionCount(selection);
+  renderLanguageBreakdown(selection);
+}
+
+// Is this commit's dot inside the brushed rectangle?
+function isCommitSelected(selection, commit) {
+  if (!selection) {
+    return false;
+  }
+  const [[x0, y0], [x1, y1]] = selection;
+  const x = xScale(commit.datetime);
+  const y = yScale(commit.hourFrac);
+  return x >= x0 && x <= x1 && y >= y0 && y <= y1;
+}
+
+// Step 5.5: show how many commits are selected
+function renderSelectionCount(selection) {
+  const selectedCommits = selection
+    ? commits.filter((d) => isCommitSelected(selection, d))
+    : [];
+
+  const count = selectedCommits.length;
+  const countElement = document.querySelector("#selection-count");
+  countElement.textContent = `${count || "No"} ${count === 1 ? "commit" : "commits"} selected`;
+
+  return selectedCommits;
+}
+
+// Step 5.6: show which languages the selected commits touched
+function renderLanguageBreakdown(selection) {
+  const selectedCommits = selection
+    ? commits.filter((d) => isCommitSelected(selection, d))
+    : [];
+  const container = document.getElementById("language-breakdown");
+
+  if (selectedCommits.length === 0) {
+    container.innerHTML = "";
+    return;
+  }
+
+  // All lines from the selected commits, in one flat array
+  const lines = selectedCommits.flatMap((d) => d.lines);
+
+  // Count lines per language (css, html, js)
+  const breakdown = d3.rollup(
+    lines,
+    (v) => v.length,
+    (d) => d.type,
+  );
+
+  container.innerHTML = "";
+
+  for (const [language, count] of breakdown) {
+    const proportion = count / lines.length;
+    const formatted = d3.format(".1~%")(proportion);
+
+    container.innerHTML += `
+      <dt>${language}</dt>
+      <dd>${formatted}<small>${count} lines</small></dd>
+    `;
+  }
 }
 
 renderScatterPlot(data, commits);

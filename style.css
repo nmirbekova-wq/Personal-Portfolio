@@ -660,3 +660,46 @@ dl.info[hidden]:not(:hover, :focus-within) {
 .dots circle:hover {
   transform: scale(1.5);
 }
+
+/* Lab 6 Step 5: brushing */
+@keyframes marching-ants {
+  to {
+    stroke-dashoffset: -8; /* 5 + 3 */
+  }
+}
+
+.selection {
+  fill: var(--color-accent);
+  fill-opacity: 0.08;
+  stroke: var(--color-text);
+  stroke-opacity: 0.6;
+  stroke-dasharray: 5 3;
+  animation: marching-ants 2s linear infinite;
+}
+
+.dots circle.selected {
+  fill: #ff6b6b;
+}
+
+#selection-count {
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+/* Hide the breakdown card until something is selected */
+#language-breakdown:empty {
+  display: none;
+}
+
+#language-breakdown dt {
+  text-transform: uppercase;
+}
+
+#language-breakdown small {
+  display: block;
+  margin-top: 0.25em;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-muted);
+}
