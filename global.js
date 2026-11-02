@@ -15,6 +15,7 @@ function $$(selector, context = document) {
 let pages = [
   { url: "", title: "Home" },
   { url: "projects/", title: "Projects" },
+  { url: "meta/", title: "Meta" },
   { url: "contact/", title: "Contact" },
   { url: "cv/", title: "CV" },
   { url: "https://github.com/nmirbekova-wq", title: "GitHub" },
