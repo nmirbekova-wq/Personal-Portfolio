@@ -94,6 +94,10 @@ console.log(commits);
 
 renderCommitInfo(data, commits);
 
+// Scales live outside the function so brushing (Step 5) can use them
+let xScale;
+let yScale;
+
 // Step 2: scatterplot of commits by date and time of day
 function renderScatterPlot(data, commits) {
   const width = 1000;
@@ -117,16 +121,23 @@ function renderScatterPlot(data, commits) {
     .style("overflow", "visible");
 
   // Scales: data values to pixel positions
-  const xScale = d3
+  xScale = d3
     .scaleTime()
     .domain(d3.extent(commits, (d) => d.datetime))
     .range([usableArea.left, usableArea.right])
     .nice();
 
-  const yScale = d3
+  yScale = d3
     .scaleLinear()
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
+
+  // Step 4.1-4.2: dot area grows with lines edited (square root scale)
+  const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+  const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([3, 25]);
+
+  // Step 4.3: draw big dots first so small ones stay on top and hoverable
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
 
   // Step 2.3: gridlines first, so they sit behind everything
   const gridlines = svg
@@ -141,11 +152,26 @@ function renderScatterPlot(data, commits) {
 
   dots
     .selectAll("circle")
-    .data(commits)
+    .data(sortedCommits)
     .join("circle")
     .attr("cx", (d) => xScale(d.datetime))
     .attr("cy", (d) => yScale(d.hourFrac))
-    .attr("r", 5);
+    .attr("r", (d) => rScale(d.totalLines))
+    .style("fill-opacity", 0.7)
+    // Step 3: show the tooltip while hovering a dot
+    .on("mouseenter", (event, commit) => {
+      d3.select(event.currentTarget).style("fill-opacity", 1);
+      renderTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on("mousemove", (event) => {
+      updateTooltipPosition(event);
+    })
+    .on("mouseleave", (event) => {
+      d3.select(event.currentTarget).style("fill-opacity", 0.7);
+      updateTooltipVisibility(false);
+    });
 
   // Step 2.2: axes
   const xAxis = d3.axisBottom(xScale);
@@ -162,6 +188,49 @@ function renderScatterPlot(data, commits) {
     .append("g")
     .attr("transform", `translate(${usableArea.left}, 0)`)
     .call(yAxis);
+}
+
+// Step 3.1: fill the tooltip with one commit's info
+function renderTooltipContent(commit) {
+  const link = document.getElementById("commit-link");
+  const date = document.getElementById("commit-date");
+  const time = document.getElementById("commit-time");
+  const author = document.getElementById("commit-author");
+  const lines = document.getElementById("commit-lines");
+
+  if (Object.keys(commit).length === 0) return;
+
+  link.href = commit.url;
+  link.textContent = commit.id;
+  date.textContent = commit.datetime?.toLocaleString("en", { dateStyle: "full" });
+  time.textContent = commit.datetime?.toLocaleString("en", { timeStyle: "short" });
+  author.textContent = commit.author;
+  lines.textContent = commit.totalLines;
+}
+
+// Step 3.3: show or hide the tooltip
+function updateTooltipVisibility(isVisible) {
+  const tooltip = document.getElementById("commit-tooltip");
+  tooltip.hidden = !isVisible;
+}
+
+// Step 3.4: place the tooltip next to the mouse,
+// flipping to the other side if it would go off screen
+function updateTooltipPosition(event) {
+  const tooltip = document.getElementById("commit-tooltip");
+  const gap = 12;
+  let x = event.clientX + gap;
+  let y = event.clientY + gap;
+
+  if (x + tooltip.offsetWidth > window.innerWidth) {
+    x = event.clientX - tooltip.offsetWidth - gap;
+  }
+  if (y + tooltip.offsetHeight > window.innerHeight) {
+    y = event.clientY - tooltip.offsetHeight - gap;
+  }
+
+  tooltip.style.left = `${x}px`;
+  tooltip.style.top = `${y}px`;
 }
 
 renderScatterPlot(data, commits);

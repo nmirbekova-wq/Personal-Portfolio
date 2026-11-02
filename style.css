@@ -603,3 +603,60 @@ img {
   font-family: inherit;
   fill: var(--color-muted);
 }
+
+/* Lab 6 Step 3: tooltip */
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25em 1em;
+  margin: 0;
+  font-size: 0.85rem;
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+}
+
+dl.info dt {
+  color: var(--color-muted);
+}
+
+dl.info dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+dl.info a {
+  color: var(--color-accent);
+}
+
+/* Hidden tooltips fade out instead of disappearing instantly */
+dl.info[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tooltip {
+  position: fixed;
+  width: max-content;
+  max-width: 22em;
+  top: 1em;
+  left: 1em;
+  z-index: 100;
+  padding: 0.75em 1em;
+  background: var(--color-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75em;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+/* Dots grow from their center on hover */
+.dots circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.dots circle:hover {
+  transform: scale(1.5);
+}
