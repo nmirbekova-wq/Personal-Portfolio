@@ -29,6 +29,18 @@
       "Learns from user feedback and reached a 90% top-3 retrieval hit rate on reworded test questions."
     ]
   },
+
+    {
+    "title": "Bikewatching: Boston Bike Traffic",
+    "year": "2026",
+    "image": "images/projects/bikewatching.png",
+    "url": "https://nmirbekova-wq.github.io/bikewatching/",
+    "description": [
+      "Interactive Mapbox and D3 map of 260,000+ Bluebikes trips from March 2024, with Boston and Cambridge bike lanes.",
+      "Time slider filters traffic by time of day, and circle color shows whether a station has more arrivals or departures."
+    ]
+  },
+  
   {
     "title": "Persuasive or Deceptive Visualization?",
     "year": "2026",
