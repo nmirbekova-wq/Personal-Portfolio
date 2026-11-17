@@ -20,10 +20,7 @@
         <time id="commit-time"></time>
     </div>
 
-    <div id="stats"></div>
-
-    <h2>Lines of code by file</h2>
-    <dl id="files"></dl>
+    <div id="stats"></div><div id="scatter-plot">
 
     <h2>Commits by time of day</h2>
     <div id="scrolly-1">
@@ -32,8 +29,12 @@
             <div id="chart"></div>
             <p id="selection-count">No commits selected</p>
             <dl id="language-breakdown" class="stats"></dl>
+
+            <div class="files-panel">
+                <h3>Lines of code by file</h3>
+                <dl id="files"></dl>
+            </div>
         </div>
-    </div>
 
 
     <dl id="commit-tooltip" class="info tooltip" hidden>

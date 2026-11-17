@@ -833,3 +833,59 @@ dl.info[hidden]:not(:hover, :focus-within) {
 #scatter-story .step a {
   color: var(--color-accent);
 }
+
+/* Scatterplot and files chart share the sticky right column,
+   sized to fit on one screen */
+#scatter-plot {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 6rem);
+}
+
+#chart {
+  flex: none;
+  margin-block: 0;
+}
+
+#selection-count {
+  flex: none;
+  margin: 0.25em 0;
+  font-size: 0.85rem;
+}
+
+#language-breakdown {
+  flex: none;
+  margin-bottom: 0.5em;
+}
+
+/* The files chart takes the space left, and scrolls inside if it's long */
+.files-panel {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.files-panel h3 {
+  margin: 0 0 0.5em;
+  font-size: 1rem;
+}
+
+.files-panel #files {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1em;
+  font-size: 0.8rem;
+}
+
+.files-panel .loc {
+  width: 0.4em;
+}
+
+/* Chart and files chart get about half the column each */
+#chart svg {
+  display: block;
+  width: 100%;
+  max-height: calc(50vh - 4rem);
+}
