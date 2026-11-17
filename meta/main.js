@@ -180,8 +180,15 @@ function renderScatterPlot(data, commits) {
 function updateScatterPlot(data, commits) {
   const svg = d3.select("#chart").select("svg");
 
-  // Stretch the x-axis to the commits being shown
-  xScale.domain(d3.extent(commits, (d) => d.datetime)).nice();
+  // Stretch the x-axis to the commits being shown.
+  // With only 1 commit, first and last are the same date, so add a day
+  // on each side to keep the axis readable.
+  let [start, end] = d3.extent(commits, (d) => d.datetime);
+  if (+start === +end) {
+    start = d3.timeDay.offset(start, -1);
+    end = d3.timeDay.offset(end, 1);
+  }
+  xScale.domain([start, end]).nice();
 
   const xAxisGroup = svg.select("g.x-axis");
   xAxisGroup.selectAll("*").remove();

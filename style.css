@@ -889,3 +889,8 @@ dl.info[hidden]:not(:hover, :focus-within) {
   width: 100%;
   max-height: calc(50vh - 4rem);
 }
+
+/* Extra space after the last card so it can reach the middle of the screen */
+#scatter-story .step:last-child {
+  margin-bottom: 60vh;
+}
