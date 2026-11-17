@@ -813,7 +813,7 @@ dl.info[hidden]:not(:hover, :focus-within) {
 
 /* Lab 8 Step 3.2: each commit's paragraph is a card with space below it */
 #scatter-story .step {
-  margin-bottom: 40vh;
+  margin-bottom: 20vh;
   padding-left: 1em;
   border-left: 2px solid var(--border-color);
   color: var(--color-muted);
