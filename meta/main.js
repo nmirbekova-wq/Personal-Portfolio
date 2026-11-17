@@ -336,6 +336,51 @@ function renderLanguageBreakdown(selection) {
 
 renderScatterPlot(data, commits);
 
+// Lab 8 Step 2.4: one color per language (css, html, js)
+let fileColors = d3.scaleOrdinal(d3.schemeTableau10);
+
+// Lab 8 Step 2: unit visualization, one dot per line of code, grouped by file
+function updateFileDisplay(filteredCommits) {
+  // All lines from the commits shown, grouped by file, biggest file first
+  let lines = filteredCommits.flatMap((d) => d.lines);
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    })
+    .sort((a, b) => b.lines.length - a.lines.length);
+
+  // One <div> (with a <dt> and <dd>) per file.
+  // ":scope > div" picks only the file rows, not the line dots inside them.
+  let filesContainer = d3
+    .select("#files")
+    .selectAll(":scope > div")
+    .data(files, (d) => d.name)
+    .join(
+      // This only runs when a file first appears
+      (enter) =>
+        enter.append("div").call((div) => {
+          div.append("dt");
+          div.append("dd");
+        }),
+    )
+    .order(); // move the rows into the new sorted order
+
+  // File name, with its line count underneath
+  filesContainer
+    .select("dt")
+    .html((d) => `<code>${d.name}</code><small>${d.lines.length} lines</small>`);
+
+  // One small dot per line, colored by language
+  filesContainer
+    .select("dd")
+    .selectAll("div")
+    .data((d) => d.lines)
+    .join("div")
+    .attr("class", "loc")
+    .attr("style", (d) => `--color: ${fileColors(d.type)}`);
+}
+
 // Lab 8 Step 1.1: slider from 0 to 100 (% of the time from first to last commit)
 let commitProgress = 100;
 
@@ -365,6 +410,7 @@ function onTimeSliderChange() {
 
   updateScatterPlot(data, filteredCommits);
   renderCommitInfo(filteredData, filteredCommits);
+  updateFileDisplay(filteredCommits);
 }
 
 timeSlider.addEventListener("input", onTimeSliderChange);
