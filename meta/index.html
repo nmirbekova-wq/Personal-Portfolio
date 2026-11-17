@@ -12,6 +12,14 @@
     <h1>Meta</h1>
     <p class="intro-text">Stats and charts about the code behind this website, based on its git history.</p>
 
+    <div class="commit-filter">
+        <label>
+            Show commits until:
+            <input type="range" id="commit-progress" min="0" max="100" value="100">
+        </label>
+        <time id="commit-time"></time>
+    </div>
+
     <div id="stats"></div>
 
     <h2>Commits by time of day</h2>
@@ -27,7 +35,7 @@
         <dd id="commit-date"></dd>
 
         <dt>Time</dt>
-        <dd id="commit-time"></dd>
+        <dd id="tooltip-time"></dd>
 
         <dt>Author</dt>
         <dd id="commit-author"></dd>

@@ -45,11 +45,15 @@ function processCommits(data) {
       });
 
       return ret;
-    });
+    })
+    // Oldest commit first (needed for the slider and scrolling story)
+    .sort((a, b) => a.datetime - b.datetime);
 }
 
 // Step 1.3: show summary stats
 function renderCommitInfo(data, commits) {
+  // Clear old stats first, so this can run again when the slider moves
+  d3.select("#stats").selectAll("*").remove();
   const dl = d3.select("#stats").append("dl").attr("class", "stats");
 
   // Total lines of code
@@ -90,30 +94,32 @@ function renderCommitInfo(data, commits) {
 
 let data = await loadData();
 let commits = processCommits(data);
-console.log(commits);
+
+// Lab 8 Step 1.2: the commits currently shown (all of them at first)
+let filteredCommits = commits;
 
 renderCommitInfo(data, commits);
 
-// Scales live outside the function so brushing (Step 5) can use them
+// Scales live outside the functions so updates and brushing can use them
 let xScale;
 let yScale;
+let rScale;
 
-// Step 2: scatterplot of commits by date and time of day
+// Chart size and the space around it for the axes
+const width = 1000;
+const height = 600;
+const margin = { top: 10, right: 10, bottom: 30, left: 40 };
+const usableArea = {
+  top: margin.top,
+  right: width - margin.right,
+  bottom: height - margin.bottom,
+  left: margin.left,
+  width: width - margin.left - margin.right,
+  height: height - margin.top - margin.bottom,
+};
+
+// Lab 6 Step 2: build the chart once (svg, scales, gridlines, axes, brush)
 function renderScatterPlot(data, commits) {
-  const width = 1000;
-  const height = 600;
-
-  // Space around the chart for the axes
-  const margin = { top: 10, right: 10, bottom: 30, left: 40 };
-  const usableArea = {
-    top: margin.top,
-    right: width - margin.right,
-    bottom: height - margin.bottom,
-    left: margin.left,
-    width: width - margin.left - margin.right,
-    height: height - margin.top - margin.bottom,
-  };
-
   const svg = d3
     .select("#chart")
     .append("svg")
@@ -132,33 +138,68 @@ function renderScatterPlot(data, commits) {
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
 
-  // Step 4.1-4.2: dot area grows with lines edited (square root scale)
+  // Dot area grows with lines edited. Based on ALL commits, so a commit
+  // keeps the same size no matter where the slider is.
   const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
-  const rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([3, 25]);
+  rScale = d3.scaleSqrt().domain([minLines, maxLines]).range([3, 25]);
 
-  // Step 4.3: draw big dots first so small ones stay on top and hoverable
-  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
-
-  // Step 2.3: gridlines first, so they sit behind everything
-  const gridlines = svg
+  // Gridlines first, so they sit behind everything
+  svg
     .append("g")
     .attr("class", "gridlines")
-    .attr("transform", `translate(${usableArea.left}, 0)`);
+    .attr("transform", `translate(${usableArea.left}, 0)`)
+    .call(d3.axisLeft(yScale).tickFormat("").tickSize(-usableArea.width));
 
-  gridlines.call(d3.axisLeft(yScale).tickFormat("").tickSize(-usableArea.width));
+  // Empty group for the dots (filled in by updateScatterPlot)
+  svg.append("g").attr("class", "dots");
 
-  // Step 2.1: one dot per commit
-  const dots = svg.append("g").attr("class", "dots");
+  // Axes, with classes so updateScatterPlot can find the x-axis later
+  svg
+    .append("g")
+    .attr("transform", `translate(0, ${usableArea.bottom})`)
+    .attr("class", "x-axis")
+    .call(d3.axisBottom(xScale));
 
-  dots
+  svg
+    .append("g")
+    .attr("transform", `translate(${usableArea.left}, 0)`)
+    .attr("class", "y-axis")
+    .call(
+      d3.axisLeft(yScale).tickFormat((d) => String(d % 24).padStart(2, "0") + ":00"),
+    );
+
+  // Brushing
+  createBrushSelector(svg);
+
+  // Draw the dots
+  updateScatterPlot(data, commits);
+}
+
+// Lab 8 Step 1.2: update the existing chart instead of drawing a new one
+function updateScatterPlot(data, commits) {
+  const svg = d3.select("#chart").select("svg");
+
+  // Stretch the x-axis to the commits being shown
+  xScale.domain(d3.extent(commits, (d) => d.datetime)).nice();
+
+  const xAxisGroup = svg.select("g.x-axis");
+  xAxisGroup.selectAll("*").remove();
+  xAxisGroup.call(d3.axisBottom(xScale));
+
+  // Big dots first so small ones stay on top and hoverable
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+
+  // Step 1.3: the key (d.id) makes each commit keep its own circle
+  svg
+    .select("g.dots")
     .selectAll("circle")
-    .data(sortedCommits)
+    .data(sortedCommits, (d) => d.id)
     .join("circle")
     .attr("cx", (d) => xScale(d.datetime))
     .attr("cy", (d) => yScale(d.hourFrac))
     .attr("r", (d) => rScale(d.totalLines))
+    .style("--r", (d) => rScale(d.totalLines))
     .style("fill-opacity", 0.7)
-    // Step 3: show the tooltip while hovering a dot
     .on("mouseenter", (event, commit) => {
       d3.select(event.currentTarget).style("fill-opacity", 1);
       renderTooltipContent(commit);
@@ -172,30 +213,13 @@ function renderScatterPlot(data, commits) {
       d3.select(event.currentTarget).style("fill-opacity", 0.7);
       updateTooltipVisibility(false);
     });
-
-  // Step 2.2: axes
-  const xAxis = d3.axisBottom(xScale);
-  const yAxis = d3
-    .axisLeft(yScale)
-    .tickFormat((d) => String(d % 24).padStart(2, "0") + ":00");
-
-  svg
-    .append("g")
-    .attr("transform", `translate(0, ${usableArea.bottom})`)
-    .call(xAxis);
-
-  svg
-    .append("g")
-    .attr("transform", `translate(${usableArea.left}, 0)`)
-    .call(yAxis);
-  createBrushSelector(svg);
 }
 
 // Step 3.1: fill the tooltip with one commit's info
 function renderTooltipContent(commit) {
   const link = document.getElementById("commit-link");
   const date = document.getElementById("commit-date");
-  const time = document.getElementById("commit-time");
+  const time = document.getElementById("tooltip-time");
   const author = document.getElementById("commit-author");
   const lines = document.getElementById("commit-lines");
 
@@ -265,7 +289,7 @@ function isCommitSelected(selection, commit) {
 // Step 5.5: show how many commits are selected
 function renderSelectionCount(selection) {
   const selectedCommits = selection
-    ? commits.filter((d) => isCommitSelected(selection, d))
+    ? filteredCommits.filter((d) => isCommitSelected(selection, d))
     : [];
 
   const count = selectedCommits.length;
@@ -278,7 +302,7 @@ function renderSelectionCount(selection) {
 // Step 5.6: show which languages the selected commits touched
 function renderLanguageBreakdown(selection) {
   const selectedCommits = selection
-    ? commits.filter((d) => isCommitSelected(selection, d))
+    ? filteredCommits.filter((d) => isCommitSelected(selection, d))
     : [];
   const container = document.getElementById("language-breakdown");
 
@@ -311,3 +335,37 @@ function renderLanguageBreakdown(selection) {
 }
 
 renderScatterPlot(data, commits);
+
+// Lab 8 Step 1.1: slider from 0 to 100 (% of the time from first to last commit)
+let commitProgress = 100;
+
+// Turns 0-100 into a date, and back
+let timeScale = d3
+  .scaleTime()
+  .domain([d3.min(commits, (d) => d.datetime), d3.max(commits, (d) => d.datetime)])
+  .range([0, 100]);
+
+let commitMaxTime = timeScale.invert(commitProgress);
+
+const timeSlider = document.getElementById("commit-progress");
+const selectedTime = document.getElementById("commit-time");
+
+function onTimeSliderChange() {
+  commitProgress = Number(timeSlider.value);
+  commitMaxTime = timeScale.invert(commitProgress);
+
+  selectedTime.textContent = commitMaxTime.toLocaleString("en", {
+    dateStyle: "long",
+    timeStyle: "short",
+  });
+
+  // Step 1.2: keep only commits up to that time, then redraw
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+  let filteredData = filteredCommits.flatMap((d) => d.lines);
+
+  updateScatterPlot(data, filteredCommits);
+  renderCommitInfo(filteredData, filteredCommits);
+}
+
+timeSlider.addEventListener("input", onTimeSliderChange);
+onTimeSliderChange();
