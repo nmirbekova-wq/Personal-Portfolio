@@ -428,30 +428,24 @@ d3.select("#scatter-story")
   .data(commits)
   .join("div")
   .attr("class", "step")
-  .html((d, i) => {
+  .html((d) => {
     const date = d.datetime.toLocaleString("en", {
-      dateStyle: "full",
-      timeStyle: "short",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
     });
     const fileCount = d3.rollups(
       d.lines,
       (D) => D.length,
       (d) => d.file,
     ).length;
-    const commitText =
-      i === 0
-        ? "my first commit, and it was glorious"
-        : i === commits.length - 1
-          ? "my latest commit"
-          : "another glorious commit";
 
     return `
       <time>${date}</time>
       <p>
-        I made <a href="${d.url}" target="_blank">${commitText}</a>.
-        I edited ${d.totalLines} ${d.totalLines === 1 ? "line" : "lines"}
-        across ${fileCount} ${fileCount === 1 ? "file" : "files"}.
-        Then I looked over all I had made, and I saw that it was very good.
+        <a href="${d.url}" target="_blank">${d.totalLines} ${d.totalLines === 1 ? "line" : "lines"}</a>
+        in ${fileCount} ${fileCount === 1 ? "file" : "files"}
       </p>
     `;
   });
