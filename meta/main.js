@@ -1,4 +1,6 @@
 import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm";
+import scrollama from "https://cdn.jsdelivr.net/npm/scrollama@3.2.0/+esm";
 
 // Step 1.1: read the CSV and convert text to real numbers and dates
 async function loadData() {
@@ -395,10 +397,8 @@ let commitMaxTime = timeScale.invert(commitProgress);
 const timeSlider = document.getElementById("commit-progress");
 const selectedTime = document.getElementById("commit-time");
 
-function onTimeSliderChange() {
-  commitProgress = Number(timeSlider.value);
-  commitMaxTime = timeScale.invert(commitProgress);
-
+// Redraw everything for commits up to commitMaxTime
+function updateForTime() {
   selectedTime.textContent = commitMaxTime.toLocaleString("en", {
     dateStyle: "long",
     timeStyle: "short",
@@ -413,5 +413,67 @@ function onTimeSliderChange() {
   updateFileDisplay(filteredCommits);
 }
 
+// The slider sets the time from its 0-100 value
+function onTimeSliderChange() {
+  commitProgress = Number(timeSlider.value);
+  commitMaxTime = timeScale.invert(commitProgress);
+  updateForTime();
+}
+
 timeSlider.addEventListener("input", onTimeSliderChange);
 onTimeSliderChange();
+
+// Lab 8 Step 3.2: one paragraph of story per commit
+d3.select("#scatter-story")
+  .selectAll(".step")
+  .data(commits)
+  .join("div")
+  .attr("class", "step")
+  .html((d, i) => {
+    const date = d.datetime.toLocaleString("en", {
+      dateStyle: "full",
+      timeStyle: "short",
+    });
+    const fileCount = d3.rollups(
+      d.lines,
+      (D) => D.length,
+      (d) => d.file,
+    ).length;
+    const commitText =
+      i === 0
+        ? "my first commit, and it was glorious"
+        : i === commits.length - 1
+          ? "my latest commit"
+          : "another glorious commit";
+
+    return `
+      <time>${date}</time>
+      <p>
+        I made <a href="${d.url}" target="_blank">${commitText}</a>.
+        I edited ${d.totalLines} ${d.totalLines === 1 ? "line" : "lines"}
+        across ${fileCount} ${fileCount === 1 ? "file" : "files"}.
+        Then I looked over all I had made, and I saw that it was very good.
+      </p>
+    `;
+  });
+
+// Lab 8 Step 3.3: when a story step reaches the middle of the screen,
+// show the chart as of that commit
+function onStepEnter(response) {
+  const commit = response.element.__data__;
+  commitMaxTime = commit.datetime;
+
+  // Keep the slider in sync with the story
+  commitProgress = timeScale(commitMaxTime);
+  timeSlider.value = commitProgress;
+
+  updateForTime();
+}
+
+const scroller = scrollama();
+scroller
+  .setup({
+    container: "#scrolly-1",
+    step: "#scrolly-1 .step",
+  })
+  .onStepEnter(onStepEnter);
